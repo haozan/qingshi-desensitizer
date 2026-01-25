@@ -1,0 +1,354 @@
+<div class="min-h-screen bg-surface">
+  <!-- Sticky Header with Scroll Effect -->
+  <header class="sticky-header" data-controller="navbar-scroll">
+    <div class="container mx-auto px-6 py-4">
+      <nav class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <%= image_tag "app-icon.png", alt: "脱敏大师 Logo", class: "w-8 h-8 rounded-lg" %>
+          <span class="text-2xl font-bold text-primary">脱敏大师</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#features" class="text-secondary hover:text-primary transition-colors duration-200">产品特性</a>
+          <a href="#how-it-works" class="text-secondary hover:text-primary transition-colors duration-200">工作流程</a>
+          <a href="#faq" class="text-secondary hover:text-primary transition-colors duration-200">常见问题</a>
+          <%= link_to "立即开始", "/processor", class: "btn-primary" %>
+        </div>
+        <div class="flex items-center space-x-2">
+          <!-- PWA Install Button -->
+          <div data-controller="pwa-install">
+            <button
+              data-pwa-install-target="installButton"
+              data-action="click->pwa-install#install"
+              class="hidden btn-primary !py-2 !px-4 flex items-center space-x-2">
+              <%= lucide_icon "download", class: "w-4 h-4" %>
+              <span class="hidden sm:inline">安装应用</span>
+            </button>
+          </div>
+          <!-- Theme Toggle -->
+          <div data-controller="theme" data-theme-storage-key-value="demo-isdark">
+            <button 
+              data-action="click->theme#toggle" 
+              class="p-2 rounded-lg hover:bg-surface-elevated transition-colors">
+              <%= lucide_icon "sun", class: "w-5 h-5 text-secondary hidden", data: { theme_target: "lightIcon" } %>
+              <%= lucide_icon "moon", class: "w-5 h-5 text-secondary", data: { theme_target: "darkIcon" } %>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section with Interactive Element -->
+  <section class="py-20 px-6 bg-gradient-to-br from-primary/5 via-surface to-secondary/5">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <div class="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+            <%= lucide_icon "shield-check", class: "w-4 h-4 text-primary mr-2" %>
+            <span class="text-sm font-medium text-primary">专为专业人士设计</span>
+          </div>
+          <h1 class="text-5xl font-bold text-primary leading-tight">
+            让敏感信息<br>
+            <span class="text-secondary">安全无忧</span>
+          </h1>
+          <p class="text-xl text-secondary leading-relaxed">
+            为律师、咨询顾问等专业人士打造的文本脱敏工具。轻松将敏感文档交给AI处理，并能完美还原，让您的工作更高效、更安全。
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <%= link_to "/processor", class: "action-btn flex items-center justify-center space-x-2" do %>
+              <%= lucide_icon "arrow-right", class: "w-5 h-5" %>
+              <span>立即开始使用</span>
+            <% end %>
+            <a href="#how-it-works" class="btn-outline flex items-center justify-center space-x-2">
+              <%= lucide_icon "play-circle", class: "w-5 h-5" %>
+              <span>了解工作原理</span>
+            </a>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-primary">100%</div>
+              <div class="text-sm text-muted">离线使用</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-primary">100%</div>
+              <div class="text-sm text-muted">双向可还原</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-primary">100%</div>
+              <div class="text-sm text-muted">精准匹配</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-primary">100%</div>
+              <div class="text-sm text-muted">永久免费</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-elevated p-8 bg-surface">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-secondary">原始文本示例</span>
+              <span class="stats-badge">脱敏前</span>
+            </div>
+            <div class="text-pane !min-h-[200px]">
+              <p class="text-secondary">北京天元律师事务所代理张三诉讼案件，涉及上海XX公司商业合同纠纷...</p>
+            </div>
+            <div class="flex items-center justify-center">
+              <%= lucide_icon "arrow-down", class: "w-6 h-6 text-primary animate-bounce" %>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-secondary">脱敏后文本</span>
+              <span class="stats-badge">可安全分享</span>
+            </div>
+            <div class="text-pane !min-h-[200px] border-primary/50">
+              <p class="text-secondary">【机构A】代理【人物A】诉讼案件，涉及【机构B】商业合同纠纷...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Features - Single Column Scroll with Anchor Animation -->
+  <section id="features" class="py-20 px-6 bg-surface">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-primary mb-4">强大的产品特性</h2>
+        <p class="text-lg text-secondary">一站式文本脱敏解决方案，保护您的敏感信息</p>
+      </div>
+      <div class="space-y-12">
+        <!-- Feature 1 -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div class="flex items-start space-x-6">
+            <div class="flex-shrink-0 w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center">
+              <%= lucide_icon "mouse-pointer-click", class: "w-8 h-8 text-primary" %>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-primary mb-3">智能选择与高亮</h3>
+              <p class="text-secondary leading-relaxed">
+                鼠标选中任意敏感文字，系统自动高亮全文所有相同内容。支持机构名、人名、地址等各类敏感信息的快速识别和标记。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div class="flex items-start space-x-6">
+            <div class="flex-shrink-0 w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center">
+              <%= lucide_icon "layers", class: "w-8 h-8 text-secondary" %>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-primary mb-3">批量脱敏处理</h3>
+              <p class="text-secondary leading-relaxed">
+                一次性添加多个脱敏规则，支持自定义标签格式（如【机构A】、【人物B】等）。点击"一键脱敏"即可完成所有替换，效率倍增。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div class="flex items-start space-x-6">
+            <div class="flex-shrink-0 w-16 h-16 bg-success/10 rounded-lg flex items-center justify-center">
+              <%= lucide_icon "undo-2", class: "w-8 h-8 text-success" %>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-primary mb-3">完美还原功能</h3>
+              <p class="text-secondary leading-relaxed">
+                AI处理后的文本粘贴回来，点击"一键还原"即可恢复所有原始信息。脱敏映射记录自动保存，支持跨会话使用。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div class="flex items-start space-x-6">
+            <div class="flex-shrink-0 w-16 h-16 bg-info/10 rounded-lg flex items-center justify-center">
+              <%= lucide_icon "shield", class: "w-8 h-8 text-info" %>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-primary mb-3">离线安全存储</h3>
+              <p class="text-secondary leading-relaxed">
+                所有数据本地存储，无需联网。脱敏记录保存在您的浏览器中，绝不上传服务器，确保敏感信息完全安全。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works - Block Diagram with Hover Zoom -->
+  <section id="how-it-works" class="py-20 px-6 bg-gradient-to-br from-secondary/5 to-surface">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-primary mb-4">三步完成脱敏与还原</h2>
+        <p class="text-lg text-secondary">简单直观的操作流程，让您快速上手</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="card-elevated p-8 text-center hover:scale-105 transition-transform duration-300">
+          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-3xl font-bold text-primary">1</span>
+          </div>
+          <%= lucide_icon "edit-3", class: "w-12 h-12 text-primary mx-auto mb-4" %>
+          <h3 class="text-xl font-bold text-primary mb-3">选择与标记</h3>
+          <p class="text-secondary">
+            粘贴原始文本，选中敏感信息，系统自动高亮全文匹配项，设置自定义脱敏标签。
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-elevated p-8 text-center hover:scale-105 transition-transform duration-300">
+          <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-3xl font-bold text-secondary">2</span>
+          </div>
+          <%= lucide_icon "shield-check", class: "w-12 h-12 text-secondary mx-auto mb-4" %>
+          <h3 class="text-xl font-bold text-primary mb-3">一键脱敏</h3>
+          <p class="text-secondary">
+            添加多个脱敏规则后，点击"一键脱敏"完成替换，复制脱敏文本交给AI处理。
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-elevated p-8 text-center hover:scale-105 transition-transform duration-300">
+          <div class="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
+            <span class="text-3xl font-bold text-success">3</span>
+          </div>
+          <%= lucide_icon "undo-2", class: "w-12 h-12 text-success mx-auto mb-4" %>
+          <h3 class="text-xl font-bold text-primary mb-3">完美还原</h3>
+          <p class="text-secondary">
+            AI返回结果后，粘贴到右栏，点击"一键还原"恢复所有原始敏感信息。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section - Accordion Style -->
+  <section id="faq" class="py-20 px-6 bg-surface">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-primary mb-4">常见问题</h2>
+        <p class="text-lg text-secondary">关于脱敏大师的更多信息</p>
+      </div>
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200" open>
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>脱敏标签必须使用中文方括号吗？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            是的，强烈建议使用中文方括号【】格式，这样AI工具可以更容易识别这些标签。例如：【机构A】、【人物B】等。这种格式在中文环境下更加醒目且不易混淆。
+          </p>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>脱敏记录会丢失吗？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            脱敏映射记录会自动保存在浏览器的本地存储中，支持跨会话保留。即使关闭浏览器，下次打开依然可以使用之前的脱敏规则进行还原。但请注意不要清除浏览器缓存。
+          </p>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>支持处理大文本吗？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            支持！系统经过优化，可以流畅处理大段文本。无论是几页的法律文书还是长篇报告，都能快速完成脱敏和还原操作，不会出现卡顿。
+          </p>
+        </details>
+
+        <!-- FAQ 4 -->
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>可以编辑或删除脱敏规则吗？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            当然可以！在脱敏规则管理区域，您可以随时编辑、删除单条规则，或者清空所有规则。系统提供直观的界面让您轻松管理所有脱敏映射关系。
+          </p>
+        </details>
+
+        <!-- FAQ 5 -->
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>数据是否会上传到服务器？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            绝不会！脱敏大师是完全离线的工具，所有文本处理和数据存储都在您的浏览器本地完成。我们不会收集、上传或存储任何用户数据，确保您的敏感信息100%安全。
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer - Two-tier -->
+  <footer class="bg-surface-elevated border-t border-border">
+    <!-- Top row with links -->
+    <div class="container mx-auto px-6 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <%= image_tag "app-icon.png", alt: "脱敏大师 Logo", class: "w-6 h-6 rounded-lg" %>
+            <span class="text-xl font-bold text-primary">脱敏大师</span>
+          </div>
+          <p class="text-sm text-muted">
+            专业的文本脱敏与还原工具，为您的敏感信息保驾护航。
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-primary mb-4">产品</h4>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li><a href="#features" class="hover:text-primary transition-colors">产品特性</a></li>
+            <li><a href="#how-it-works" class="hover:text-primary transition-colors">工作流程</a></li>
+            <li><a href="/processor" class="hover:text-primary transition-colors">立即使用</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-primary mb-4">支持</h4>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li><a href="#faq" class="hover:text-primary transition-colors">常见问题</a></li>
+            <li><span class="text-muted">使用指南</span></li>
+            <li><span class="text-muted">联系我们</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-primary mb-4">关于</h4>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li><span class="text-muted">关于我们</span></li>
+            <li><span class="text-muted">隐私政策</span></li>
+            <li><span class="text-muted">服务条款</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom row with copyright -->
+    <div class="border-t border-border">
+      <div class="container mx-auto px-6 py-6">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p class="text-sm text-muted">
+            © 2026 脱敏大师 by 镐赞. 保留所有权利。
+          </p>
+          <div class="flex flex-col items-center space-y-3">
+            <%= image_tag "author-wechat-qr.png", alt: "作者微信二维码", class: "w-24 h-24 shadow-md" %>
+            <p class="text-sm text-secondary text-center">
+              扫码添加作者微信<br>
+              <span class="text-xs text-muted">交流产品使用与反馈</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

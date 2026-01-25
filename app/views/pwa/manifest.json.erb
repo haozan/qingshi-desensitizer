@@ -1,0 +1,44 @@
+{
+  "name": "脱敏大师",
+  "short_name": "脱敏大师",
+  "icons": [
+    {
+      "src": "<%= asset_path('app-icon.png') %>",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "<%= asset_path('app-icon.png') %>",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "description": "专业的文本脱敏与还原工具，为律师和专业人士打造。支持离线使用、批量处理、完美还原。",
+  "theme_color": "#1D6E47",
+  "background_color": "#ffffff",
+  "orientation": "any",
+  "categories": ["productivity", "utilities", "business"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "打开脱敏工具",
+      "short_name": "脱敏",
+      "description": "快速打开文本脱敏处理界面",
+      "url": "/processor",
+      "icons": [
+        {
+          "src": "<%= asset_path('app-icon.png') %>",
+          "type": "image/png",
+          "sizes": "512x512"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+<div class="min-h-screen bg-surface py-8">
+  <div class="container mx-auto px-6 max-w-7xl">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <%= link_to root_path, class: "flex items-center space-x-2 text-primary hover:text-primary-dark transition-colors" do %>
+          <%= lucide_icon "arrow-left", class: "w-5 h-5" %>
+          <span class="text-lg font-medium">返回首页</span>
+        <% end %>
+      </div>
+      <div class="flex items-center space-x-2">
+        <%= image_tag "app-icon.png", alt: "脱敏大师 Logo", class: "w-8 h-8 rounded-lg" %>
+        <h1 class="text-3xl font-bold text-primary">脱敏大师</h1>
+      </div>
+      <div class="flex items-center space-x-2">
+        <!-- PWA Install Button - Enhanced -->
+        <div data-controller="pwa-install">
+          <button
+            data-pwa-install-target="installButton"
+            data-action="click->pwa-install#install"
+            class="hidden btn-primary !py-2.5 !px-5 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+            <%= lucide_icon "download", class: "w-5 h-5" %>
+            <span class="font-semibold">安装应用</span>
+          </button>
+        </div>
+        <!-- Theme Toggle -->
+        <div data-controller="theme" data-theme-storage-key-value="processor-isdark">
+          <button 
+            data-action="click->theme#toggle" 
+            class="p-2 rounded-lg hover:bg-surface-elevated transition-colors">
+            <%= lucide_icon "sun", class: "w-5 h-5 text-secondary hidden", data: { theme_target: "lightIcon" } %>
+            <%= lucide_icon "moon", class: "w-5 h-5 text-secondary", data: { theme_target: "darkIcon" } %>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PWA Install Banner - Prominent -->
+    <div data-controller="pwa-install" class="mb-6">
+      <div 
+        data-pwa-install-target="installButton"
+        class="hidden">
+        <div class="bg-gradient-to-r from-primary to-secondary p-5 rounded-xl shadow-2xl border-2 border-primary/30 animate-fade-in">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4 text-white">
+              <%= lucide_icon "smartphone", class: "w-12 h-12 flex-shrink-0" %>
+              <div>
+                <h3 class="text-xl font-bold mb-1">📱 安装脱敏大师到您的设备</h3>
+                <p class="text-sm opacity-90">离线使用 • 秒开启动 • 像原生应用一样流畅 • 数据100%本地存储</p>
+              </div>
+            </div>
+            <button
+              data-action="click->pwa-install#install"
+              class="flex-shrink-0 bg-white text-primary px-8 py-3.5 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 whitespace-nowrap">
+              <%= lucide_icon "download", class: "w-5 h-5" %>
+              <span>立即安装</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instructions Card - 3 Steps -->
+    <div class="card-elevated p-6 mb-6 bg-primary/5 border-primary/20">
+      <div class="flex items-start space-x-4 mb-4">
+        <%= lucide_icon "info", class: "w-6 h-6 text-primary flex-shrink-0 mt-1" %>
+        <div class="flex-1">
+          <h3 class="text-lg font-bold text-primary mb-2">三步完成脱敏与还原</h3>
+          <p class="text-sm text-secondary mb-4">简单直观的操作流程，让您快速上手</p>
+        </div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-4">
+        <!-- Step 1 -->
+        <div class="bg-surface p-4 rounded-lg border border-primary/20">
+          <div class="flex items-center space-x-3 mb-2">
+            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-primary">1</span>
+            </div>
+            <h4 class="text-base font-bold text-primary">选择与标记</h4>
+          </div>
+          <p class="text-sm text-secondary ml-11">
+            粘贴原始文本，选中敏感信息，系统自动高亮全文匹配项，设置自定义脱敏标签。
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-surface p-4 rounded-lg border border-secondary/20">
+          <div class="flex items-center space-x-3 mb-2">
+            <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-secondary">2</span>
+            </div>
+            <h4 class="text-base font-bold text-primary">一键脱敏</h4>
+          </div>
+          <p class="text-sm text-secondary ml-11">
+            添加多个脱敏规则后，点击"一键脱敏"完成替换，复制脱敏文本交给AI处理。
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-surface p-4 rounded-lg border border-success/20">
+          <div class="flex items-center space-x-3 mb-2">
+            <div class="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-success">3</span>
+            </div>
+            <h4 class="text-base font-bold text-primary">完美还原</h4>
+          </div>
+          <p class="text-sm text-secondary ml-11">
+            AI返回结果后，粘贴到右栏，点击"一键还原"恢复所有原始敏感信息。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div 
+      class="space-y-6"
+      data-controller="desensitization-manager text-highlight"
+      data-action="text-selected->desensitization-manager#handleTextSelected">
+      
+      <!-- Dual Pane Layout -->
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Left Pane: Original Text -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-primary flex items-center space-x-2">
+              <%= lucide_icon "file-text", class: "w-5 h-5" %>
+              <span>原始文本</span>
+            </h2>
+            <div class="flex items-center space-x-2">
+              <span 
+                class="text-xs text-muted"
+                data-desensitization-manager-target="originalCounter">
+                0 字符
+              </span>
+              <span 
+                class="text-xs px-3 py-1.5 bg-warning/30 text-warning rounded-lg font-semibold border border-warning/50 shadow-sm hidden"
+                data-text-highlight-target="counter">
+              </span>
+            </div>
+          </div>
+          <div class="text-pane">
+            <textarea 
+              class="w-full h-full min-h-[500px] bg-transparent border-0 outline-none resize-none font-mono text-sm text-secondary placeholder:text-muted"
+              placeholder="粘贴或输入需要脱敏的原始文本...
+
+示例文本:
+北京天元律师事务所代理张三诉讼案件，涉及上海XX公司商业合同纠纷。李四作为第三方证人出庭作证。"
+              data-desensitization-manager-target="originalText"
+              data-text-highlight-target="content"
+              data-action="input->desensitization-manager#updateCounters mouseup->text-highlight#handleSelection"></textarea>
+          </div>
+        </div>
+
+        <!-- Right Pane: Desensitized Text -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-primary flex items-center space-x-2">
+              <%= lucide_icon "shield", class: "w-5 h-5" %>
+              <span>脱敏文本</span>
+            </h2>
+            <div class="flex items-center space-x-2">
+              <span 
+                class="text-xs text-muted"
+                data-desensitization-manager-target="desensitizedCounter">
+                0 字符
+              </span>
+              <button 
+                type="button"
+                class="btn-sm btn-outline"
+                data-desensitization-manager-target="copyButton"
+                data-action="click->desensitization-manager#copyDesensitized">
+                <%= lucide_icon "copy", class: "w-4 h-4 mr-1" %>
+                复制
+              </button>
+            </div>
+          </div>
+          <div class="text-pane border-primary/30">
+            <textarea 
+              class="w-full h-full min-h-[500px] bg-transparent border-0 outline-none resize-none font-mono text-sm text-secondary placeholder:text-muted"
+              placeholder="脱敏后的文本将显示在这里...
+
+您也可以粘贴AI处理后的文本(含标签)到此处，然后点击"一键还原"恢复原始信息。"
+              data-desensitization-manager-target="desensitizedText"
+              data-action="input->desensitization-manager#updateCounters"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Control Panel -->
+      <div class="card-elevated p-6">
+        <div class="grid lg:grid-cols-2 gap-6">
+          <!-- Left: Rule Management -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-bold text-primary flex items-center space-x-2">
+              <%= lucide_icon "settings", class: "w-5 h-5" %>
+              <span>脱敏规则管理</span>
+            </h3>
+
+            <!-- Selected Text Display -->
+            <div 
+              class="hidden p-3 bg-warning/10 border border-warning/30 rounded-lg"
+              data-desensitization-manager-target="selectedText">
+            </div>
+
+            <!-- Add Rule Form -->
+            <div class="flex space-x-2">
+              <input 
+                type="text"
+                class="form-input flex-1 !border-2 !border-primary/50 focus:!border-primary !ring-2 !ring-primary/20 focus:!ring-primary/40 !shadow-md focus:!shadow-lg !bg-primary/5 !text-primary !font-medium !text-base"
+                placeholder="输入脱敏标签，如【机构A】"
+                data-desensitization-manager-target="labelInput"
+                data-action="keydown.enter->desensitization-manager#addRule" />
+              <button 
+                type="button"
+                class="btn-primary"
+                data-desensitization-manager-target="addButton"
+                data-action="click->desensitization-manager#addRule">
+                <%= lucide_icon "plus", class: "w-4 h-4 mr-1" %>
+                添加规则
+              </button>
+            </div>
+
+            <!-- Rules List -->
+            <div class="space-y-2 max-h-[300px] overflow-y-auto" data-desensitization-manager-target="rulesContainer">
+              <!-- Rules will be rendered here by Stimulus controller -->
+            </div>
+
+            <!-- Clear Rules Button -->
+            <button 
+              type="button"
+              class="btn-outline btn-sm text-danger border-danger hover:bg-danger/10"
+              data-action="click->desensitization-manager#clearRules">
+              <%= lucide_icon "trash-2", class: "w-4 h-4 mr-1" %>
+              清空所有规则
+            </button>
+          </div>
+
+          <!-- Right: Action Buttons -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-bold text-primary flex items-center space-x-2">
+              <%= lucide_icon "zap", class: "w-5 h-5" %>
+              <span>操作</span>
+            </h3>
+
+            <div class="space-y-3">
+              <!-- Desensitize Button -->
+              <button 
+                type="button"
+                class="action-btn w-full flex items-center justify-center space-x-2"
+                data-desensitization-manager-target="desensitizeButton"
+                data-action="click->desensitization-manager#desensitize">
+                <%= lucide_icon "shield-check", class: "w-5 h-5" %>
+                <span>一键脱敏</span>
+              </button>
+
+              <!-- Restore Button -->
+              <button 
+                type="button"
+                class="btn-secondary w-full flex items-center justify-center space-x-2 shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                data-desensitization-manager-target="restoreButton"
+                data-action="click->desensitization-manager#restore">
+                <%= lucide_icon "undo-2", class: "w-5 h-5" %>
+                <span>一键还原</span>
+              </button>
+
+              <!-- Info Box -->
+              <div class="card p-4 bg-info/5 border-info/20">
+                <div class="flex items-start space-x-3">
+                  <%= lucide_icon "lightbulb", class: "w-5 h-5 text-info flex-shrink-0 mt-0.5" %>
+                  <div class="text-sm text-secondary space-y-1">
+                    <p><strong>提示:</strong></p>
+                    <ul class="list-disc list-inside space-y-1 text-xs">
+                      <li>脱敏规则自动保存在浏览器本地</li>
+                      <li>关闭页面后规则依然保留</li>
+                      <li>建议使用【机构A】【人物B】等格式</li>
+                      <li>支持批量处理，一次添加多个规则</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="card p-4 text-center">
+          <div class="text-3xl font-bold text-primary mb-1" data-desensitization-manager-target="rulesCount">0</div>
+          <div class="text-sm text-muted">当前规则数</div>
+        </div>
+        <div class="card p-4 text-center">
+          <div class="text-3xl font-bold text-success mb-1">100%</div>
+          <div class="text-sm text-muted">本地存储</div>
+        </div>
+        <div class="card p-4 text-center">
+          <div class="text-3xl font-bold text-info mb-1">离线</div>
+          <div class="text-sm text-muted">无需联网</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
