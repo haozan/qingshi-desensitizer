@@ -9,6 +9,9 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>
 }
 
+// Global storage for deferredPrompt to persist across controller lifecycle
+let globalDeferredPrompt: BeforeInstallPromptEvent | null = null
+
 /**
  * PWA Install Controller
  *
@@ -28,8 +31,6 @@ export default class extends Controller {
   declare readonly installButtonTarget: HTMLButtonElement
   declare readonly hasInstallButtonTarget: boolean
 
-  private deferredPrompt: BeforeInstallPromptEvent | null = null
-
   connect() {
     window.addEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt.bind(this))
     window.addEventListener('appinstalled', this.handleAppInstalled.bind(this))
@@ -47,7 +48,7 @@ export default class extends Controller {
 
   private handleBeforeInstallPrompt(e: Event) {
     e.preventDefault()
-    this.deferredPrompt = e as BeforeInstallPromptEvent
+    globalDeferredPrompt = e as BeforeInstallPromptEvent
 
     if (this.hasInstallButtonTarget) {
       this.installButtonTarget.classList.remove('hidden')
@@ -55,27 +56,43 @@ export default class extends Controller {
   }
 
   private handleAppInstalled() {
-    this.deferredPrompt = null
+    globalDeferredPrompt = null
     this.hideInstallButton()
   }
 
-  async install() {
-    if (!this.deferredPrompt) {
-      // If no prompt available, show helpful message
-      console.log('安装提示：在浏览器菜单中选择"安装应用"或"添加到主屏幕"')
+  async install(event: Event) {
+    event.preventDefault()
+    event.stopPropagation()
+    
+    if (!globalDeferredPrompt) {
+      // If no prompt available, show native alert with install instructions
+      const message = '📱 安装说明\n\n请按以下步骤安装：\n\n' +
+        '• Chrome/Edge： 点击地址栏右侧的安装图标\n' +
+        '• Safari (iOS)： 点击分享按钮 → "添加到主屏幕"\n' +
+        '• Firefox： 浏览器菜单 → "安装此站点"\n\n' +
+        '安装后可离线使用，体验更佳！'
+      
+      // eslint-disable-next-line no-alert
+      window.alert(message)
       return
     }
 
-    this.deferredPrompt.prompt()
+    try {
+      await globalDeferredPrompt.prompt()
+      const { outcome } = await globalDeferredPrompt.userChoice
 
-    const { outcome } = await this.deferredPrompt.userChoice
-
-    if (outcome === 'accepted') {
-      console.log('PWA installation accepted')
+      if (outcome === 'accepted') {
+        console.log('PWA installation accepted')
+        // Only clear and hide if user accepted
+        globalDeferredPrompt = null
+        this.hideInstallButton()
+      } else {
+        console.log('PWA installation dismissed')
+        // Keep globalDeferredPrompt so user can try again
+      }
+    } catch (error) {
+      console.error('PWA install error:', error)
     }
-
-    this.deferredPrompt = null
-    this.hideInstallButton()
   }
 
   private isStandalone(): boolean {

@@ -23,6 +23,10 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  # PWA routes
+  get 'service-worker.js', to: 'pwa#service_worker'
+  get 'manifest.json', to: 'pwa#manifest'
+
   # Do not write business logic at admin dashboard
   namespace :admin do
     resources :admin_oplogs, only: [:index, :show]
