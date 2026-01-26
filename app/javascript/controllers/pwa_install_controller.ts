@@ -34,8 +34,9 @@ export default class extends Controller {
     window.addEventListener('beforeinstallprompt', this.handleBeforeInstallPrompt.bind(this))
     window.addEventListener('appinstalled', this.handleAppInstalled.bind(this))
 
-    if (this.isStandalone()) {
-      this.hideInstallButton()
+    // Always show install button unless already in standalone mode
+    if (!this.isStandalone() && this.hasInstallButtonTarget) {
+      this.installButtonTarget.classList.remove('hidden')
     }
   }
 
@@ -60,6 +61,8 @@ export default class extends Controller {
 
   async install() {
     if (!this.deferredPrompt) {
+      // If no prompt available, show helpful message
+      alert('安装提示：\n\n1. 在浏览器菜单中选择"安装应用"或"添加到主屏幕"\n2. 或者在地址栏右侧查找安装图标\n\n本应用支持离线使用，安装后体验更好！')
       return
     }
 
