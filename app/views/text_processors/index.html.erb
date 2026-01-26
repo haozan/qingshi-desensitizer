@@ -50,6 +50,58 @@
       </div>
     </div>
 
+    <!-- Instructions Card - 3 Steps -->
+    <div class="card-elevated p-6 mb-6 bg-primary/5 border-primary/20">
+      <div class="flex items-start space-x-4 mb-4">
+        <%= lucide_icon "info", class: "w-6 h-6 text-primary flex-shrink-0 mt-1" %>
+        <div class="flex-1">
+          <h3 class="text-lg font-bold text-primary mb-2">3 步完成脱敏与还原</h3>
+          <p class="text-sm text-secondary mb-4">简单直观的操作流程，让您快速上手</p>
+        </div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-4">
+        <!-- Step 1 -->
+        <div class="bg-surface p-4 rounded-lg border border-primary/20">
+          <div class="flex items-center space-x-3 mb-2">
+            <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-primary">1</span>
+            </div>
+            <h4 class="text-base font-bold text-primary">选择与标记</h4>
+          </div>
+          <p class="text-sm text-secondary ml-11">
+            粘贴原始文本，选中敏感信息，系统自动高亮全文匹配项，设置自定义脱敏标签。
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-surface p-4 rounded-lg border border-secondary/20">
+          <div class="flex items-center space-x-3 mb-2">
+            <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-secondary">2</span>
+            </div>
+            <h4 class="text-base font-bold text-primary">一键脱敏</h4>
+          </div>
+          <p class="text-sm text-secondary ml-11">
+            添加多个脱敏规则后，点击"一键脱敏"完成替换，复制脱敏文本交给AI处理。
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-surface p-4 rounded-lg border border-success/20">
+          <div class="flex items-center space-x-3 mb-2">
+            <div class="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-bold text-success">3</span>
+            </div>
+            <h4 class="text-base font-bold text-primary">完美还原</h4>
+          </div>
+          <p class="text-sm text-secondary ml-11">
+            AI返回结果后，粘贴到右栏，点击"一键还原"恢复所有原始敏感信息。
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- Main Content Area -->
     <div 
       class="space-y-6"
@@ -71,10 +123,26 @@
                 data-desensitization-manager-target="originalCounter">
                 0 字符
               </span>
-              <span 
-                class="text-xs px-3 py-1.5 bg-warning/30 text-warning rounded-lg font-semibold border border-warning/50 shadow-sm hidden"
-                data-text-highlight-target="counter">
-              </span>
+              <div class="flex items-center space-x-2 hidden" data-text-highlight-target="navigationPanel">
+                <span 
+                  class="text-xs px-3 py-1.5 bg-warning/30 text-warning rounded-lg font-semibold border border-warning/50 shadow-sm"
+                  data-text-highlight-target="counter">
+                </span>
+                <button
+                  type="button"
+                  class="btn-sm btn-outline"
+                  data-action="click->text-highlight#findPrevious"
+                  title="上一处">
+                  <%= lucide_icon "chevron-up", class: "w-4 h-4" %>
+                </button>
+                <button
+                  type="button"
+                  class="btn-sm btn-outline"
+                  data-action="click->text-highlight#findNext"
+                  title="下一处">
+                  <%= lucide_icon "chevron-down", class: "w-4 h-4" %>
+                </button>
+              </div>
             </div>
           </div>
           <div class="text-pane">
@@ -235,58 +303,6 @@
         <div class="card p-4 text-center">
           <div class="text-3xl font-bold text-info mb-1">离线</div>
           <div class="text-sm text-muted">无需联网</div>
-        </div>
-      </div>
-
-      <!-- Instructions Card - 3 Steps -->
-      <div class="card-elevated p-6 mt-6 bg-primary/5 border-primary/20">
-        <div class="flex items-start space-x-4 mb-4">
-          <%= lucide_icon "info", class: "w-6 h-6 text-primary flex-shrink-0 mt-1" %>
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-primary mb-2">三步完成脱敏与还原</h3>
-            <p class="text-sm text-secondary mb-4">简单直观的操作流程，让您快速上手</p>
-          </div>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-4">
-          <!-- Step 1 -->
-          <div class="bg-surface p-4 rounded-lg border border-primary/20">
-            <div class="flex items-center space-x-3 mb-2">
-              <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-lg font-bold text-primary">1</span>
-              </div>
-              <h4 class="text-base font-bold text-primary">选择与标记</h4>
-            </div>
-            <p class="text-sm text-secondary ml-11">
-              粘贴原始文本，选中敏感信息，系统自动高亮全文匹配项，设置自定义脱敏标签。
-            </p>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="bg-surface p-4 rounded-lg border border-secondary/20">
-            <div class="flex items-center space-x-3 mb-2">
-              <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-lg font-bold text-secondary">2</span>
-              </div>
-              <h4 class="text-base font-bold text-primary">一键脱敏</h4>
-            </div>
-            <p class="text-sm text-secondary ml-11">
-              添加多个脱敏规则后，点击"一键脱敏"完成替换，复制脱敏文本交给AI处理。
-            </p>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="bg-surface p-4 rounded-lg border border-success/20">
-            <div class="flex items-center space-x-3 mb-2">
-              <div class="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-lg font-bold text-success">3</span>
-              </div>
-              <h4 class="text-base font-bold text-primary">完美还原</h4>
-            </div>
-            <p class="text-sm text-secondary ml-11">
-              AI返回结果后，粘贴到右栏，点击"一键还原"恢复所有原始敏感信息。
-            </p>
-          </div>
         </div>
       </div>
     </div>
