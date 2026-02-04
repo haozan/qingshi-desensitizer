@@ -55,6 +55,7 @@
     </title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
+    <%= og_meta_tags %>
     <%= content_for?(:head) ? yield(:head) : '' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <!-- Load error handler early to catch all errors -->
