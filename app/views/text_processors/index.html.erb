@@ -149,6 +149,14 @@
               <button 
                 type="button"
                 class="btn-sm btn-outline"
+                data-desensitization-manager-target="exportButton"
+                data-action="click->desensitization-manager#exportToMarkdown">
+                <%= lucide_icon "download", class: "w-4 h-4 mr-1" %>
+                导出MD
+              </button>
+              <button 
+                type="button"
+                class="btn-sm btn-outline"
                 data-desensitization-manager-target="copyButton"
                 data-action="click->desensitization-manager#copyDesensitized">
                 <%= lucide_icon "copy", class: "w-4 h-4 mr-1" %>
@@ -207,10 +215,41 @@
               <!-- Rules will be rendered here by Stimulus controller -->
             </div>
 
+            <!-- Rule Actions -->
+            <div class="flex space-x-2">
+              <!-- Export Rules Button -->
+              <button 
+                type="button"
+                class="btn-sm btn-outline flex-1 flex items-center justify-center space-x-1"
+                data-action="click->desensitization-manager#exportRules"
+                title="导出规则为JSON文件">
+                <%= lucide_icon "upload", class: "w-4 h-4" %>
+                <span>导出规则</span>
+              </button>
+              
+              <!-- Import Rules Button -->
+              <button 
+                type="button"
+                class="btn-sm btn-outline flex-1 flex items-center justify-center space-x-1"
+                data-action="click->desensitization-manager#triggerImportRules"
+                title="从 JSON文件导入规则">
+                <%= lucide_icon "download", class: "w-4 h-4" %>
+                <span>导入规则</span>
+              </button>
+              
+              <!-- Hidden file input for import -->
+              <input 
+                type="file"
+                accept=".json"
+                class="hidden"
+                data-desensitization-manager-target="importInput"
+                data-action="change->desensitization-manager#importRules" />
+            </div>
+
             <!-- Clear Rules Button -->
             <button 
               type="button"
-              class="btn-outline btn-sm text-danger border-danger hover:bg-danger/10"
+              class="btn-outline btn-sm text-danger border-danger hover:bg-danger/10 w-full"
               data-action="click->desensitization-manager#clearRules">
               <%= lucide_icon "trash-2", class: "w-4 h-4 mr-1" %>
               清空所有规则

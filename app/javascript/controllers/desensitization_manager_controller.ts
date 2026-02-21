@@ -12,7 +12,7 @@ export default class extends Controller<HTMLElement> {
   static targets = [
     "originalText", "desensitizedText", "selectedText", "labelInput", 
     "rulesContainer", "addButton", "desensitizeButton", "restoreButton",
-    "copyButton", "originalCounter", "desensitizedCounter", "rulesCount"
+    "copyButton", "exportButton", "importInput", "originalCounter", "desensitizedCounter", "rulesCount"
   ]
 
   declare readonly originalTextTarget: HTMLTextAreaElement
@@ -24,6 +24,8 @@ export default class extends Controller<HTMLElement> {
   declare readonly desensitizeButtonTarget: HTMLButtonElement
   declare readonly restoreButtonTarget: HTMLButtonElement
   declare readonly copyButtonTarget: HTMLButtonElement
+  declare readonly exportButtonTarget: HTMLButtonElement
+  declare readonly importInputTarget: HTMLInputElement
   declare readonly hasOriginalCounterTarget: boolean
   declare readonly originalCounterTarget: HTMLElement
   declare readonly hasDesensitizedCounterTarget: boolean
@@ -185,6 +187,219 @@ export default class extends Controller<HTMLElement> {
     })
   }
 
+  // Export desensitized text to markdown file
+  exportToMarkdown(): void {
+    const text = this.desensitizedTextTarget.value.trim()
+    if (!text) {
+      this.showToast('没有可导出的内容', 'warning')
+      return
+    }
+
+    // Create markdown content with metadata
+    const timestamp = new Date().toLocaleString('zh-CN', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    })
+    
+    /* eslint-disable indent */
+    const markdownContent = `# 脱敏文本
+
+> 导出时间: ${timestamp}  
+> 工具: 脱敏大师  
+> 规则数量: ${this.mappingRules.length} 个
+
+---
+
+## 文本内容
+
+${text}
+
+---
+
+## 脱敏规则
+
+${this.mappingRules.length > 0 ? this.mappingRules.map((rule, index) => 
+  `${index + 1}. **${this.escapeMarkdown(rule.original_text)}** → \`${this.escapeMarkdown(rule.desensitized_label)}\``
+).join('\n') : '无规则'}
+
+---
+
+*本文件由 [脱敏大师](https://qinglion.ai) 生成*
+`
+    /* eslint-enable indent */
+
+    // Create blob and download
+    const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    
+    // Generate filename with timestamp
+    const filename = `脱敏文本_${new Date().getTime()}.md`
+    link.href = url
+    link.download = filename
+    link.style.display = 'none'
+    
+    document.body.appendChild(link)
+    link.click()
+    
+    // Cleanup
+    setTimeout(() => {
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+    }, 100)
+    
+    this.showToast('导出成功', 'success')
+  }
+
+  // Export rules to JSON file
+  exportRules(): void {
+    if (this.mappingRules.length === 0) {
+      this.showToast('没有可导出的规则', 'warning')
+      return
+    }
+
+    // Create export data with metadata
+    const exportData = {
+      version: '1.0',
+      exportTime: new Date().toISOString(),
+      tool: '脱敏大师',
+      rulesCount: this.mappingRules.length,
+      rules: this.mappingRules.map(rule => ({
+        original_text: rule.original_text,
+        desensitized_label: rule.desensitized_label
+      }))
+    }
+
+    // Create blob and download
+    const jsonContent = JSON.stringify(exportData, null, 2)
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    
+    // Generate filename with timestamp
+    const filename = `脱敏规则_${new Date().getTime()}.json`
+    link.href = url
+    link.download = filename
+    link.style.display = 'none'
+    
+    document.body.appendChild(link)
+    link.click()
+    
+    // Cleanup
+    setTimeout(() => {
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+    }, 100)
+    
+    this.showToast(`已导出 ${this.mappingRules.length} 条规则`, 'success')
+  }
+
+  // Trigger file input for import
+  triggerImportRules(): void {
+    this.importInputTarget.click()
+  }
+
+  // Import rules from JSON file
+  importRules(event: Event): void {
+    const input = event.target as HTMLInputElement
+    const file = input.files?.[0]
+    
+    if (!file) return
+
+    // Validate file type
+    if (!file.name.endsWith('.json')) {
+      this.showToast('请选择 JSON 文件', 'danger')
+      input.value = ''
+      return
+    }
+
+    const reader = new FileReader()
+    
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string
+        const data = JSON.parse(content)
+        
+        // Validate data structure
+        if (!data.rules || !Array.isArray(data.rules)) {
+          this.showToast('文件格式错误：缺少 rules 数组', 'danger')
+          return
+        }
+
+        // Validate each rule
+        const validRules: MappingRule[] = []
+        let invalidCount = 0
+        
+        data.rules.forEach((rule: any) => {
+          if (rule.original_text && rule.desensitized_label) {
+            // Validate label format
+            if (this.isValidLabel(rule.desensitized_label)) {
+              validRules.push({
+                original_text: rule.original_text,
+                desensitized_label: rule.desensitized_label,
+                id: this.generateId()
+              })
+            } else {
+              invalidCount++
+            }
+          } else {
+            invalidCount++
+          }
+        })
+
+        if (validRules.length === 0) {
+          this.showToast('没有有效的规则可导入', 'danger')
+          return
+        }
+
+        // Merge with existing rules (avoid duplicates)
+        const existingTexts = new Set(this.mappingRules.map(r => r.original_text))
+        let addedCount = 0
+        
+        validRules.forEach(rule => {
+          if (!existingTexts.has(rule.original_text)) {
+            this.mappingRules.push(rule)
+            addedCount++
+          }
+        })
+
+        // Save and update UI
+        this.saveMappings()
+        this.renderRules()
+        this.updateCounters()
+        
+        // Show result
+        let message = `成功导入 ${addedCount} 条规则`
+        if (invalidCount > 0) {
+          message += `，${invalidCount} 条无效`
+        }
+        if (addedCount < validRules.length) {
+          message += `，${validRules.length - addedCount} 条重复`
+        }
+        
+        this.showToast(message, 'success')
+        
+      } catch (error) {
+        console.error('Import error:', error)
+        this.showToast('文件解析失败，请检查文件格式', 'danger')
+      } finally {
+        // Reset file input
+        input.value = ''
+      }
+    }
+
+    reader.onerror = () => {
+      this.showToast('文件读取失败', 'danger')
+      input.value = ''
+    }
+
+    reader.readAsText(file)
+  }
+
   // Private methods
   private renderRules(): void {
     if (this.mappingRules.length === 0) {
@@ -267,7 +482,7 @@ export default class extends Controller<HTMLElement> {
   }
 
   private generateId(): string {
-    return `rule_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    return `rule_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`
   }
 
   private escapeRegex(str: string): string {
@@ -278,6 +493,17 @@ export default class extends Controller<HTMLElement> {
     const div = document.createElement('div')
     div.textContent = str
     return div.innerHTML
+  }
+
+  private escapeMarkdown(text: string): string {
+    // Escape markdown special characters
+    return text
+      .replace(/\\/g, '\\\\')
+      .replace(/\*/g, '\\*')
+      .replace(/_/g, '\\_')
+      .replace(/\[/g, '\\[')
+      .replace(/\]/g, '\\]')
+      .replace(/`/g, '\\`')
   }
 
   private updateCounters(): void {
