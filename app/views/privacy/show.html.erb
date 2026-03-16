@@ -9,119 +9,209 @@
       <p class="text-sm text-muted mt-2">最后更新：2026年1月</p>
     </div>
 
-    <!-- Product Selection -->
+    <!-- Product Tab Switch -->
     <div class="mb-8 flex justify-center gap-4">
-      <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
-        浏览器版
-      </span>
-      <span class="px-4 py-2 bg-surface-elevated text-muted rounded-full text-sm font-medium">
-        桌面版
-      </span>
+      <button id="tab-browser"
+        onclick="switchTab('browser')"
+        class="px-4 py-2 rounded-full text-sm font-medium transition-colors bg-primary/10 text-primary">
+        🌐 浏览器版
+      </button>
+      <button id="tab-desktop"
+        onclick="switchTab('desktop')"
+        class="px-4 py-2 rounded-full text-sm font-medium transition-colors bg-surface-elevated text-muted">
+        🖥️ 桌面版
+      </button>
     </div>
 
-    <!-- Content -->
-    <div class="card-elevated p-8 space-y-8">
-      
-      <!-- Section 1 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "shield-check", class: "w-6 h-6 mr-2 text-primary" %>
-          数据处理方式
-        </h2>
-        <p class="text-secondary leading-relaxed">
-          <strong>脱敏大师</strong>是一款<strong>完全离线</strong>的文本处理工具。所有文本脱敏和还原操作均在您的设备本地完成，<strong>不经过任何服务器</strong>，<strong>不依赖任何云端 AI 服务</strong>。
-        </p>
-      </section>
+    <!-- ── 浏览器版内容 ── -->
+    <div id="content-browser">
 
-      <!-- Section 2 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "database", class: "w-6 h-6 mr-2 text-primary" %>
-          数据存储
-        </h2>
-        <p class="text-secondary leading-relaxed mb-3">
-          您的数据仅保存在本地设备中：
-        </p>
-        <ul class="list-disc list-inside text-secondary space-y-2 ml-4">
-          <li><strong>浏览器版本：</strong>脱敏规则保存在浏览器本地存储（localStorage）中</li>
-          <li><strong>桌面版本：</strong>脱敏规则以 JSON 文件形式由您自行管理，可导入/导出</li>
-          <li>数据存储在您的设备本地，不上传任何服务器</li>
-          <li>我们无法访问您的任何数据</li>
-        </ul>
-      </section>
+      <div class="card-elevated p-8 space-y-8">
 
-      <!-- Section 3 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "upload-cloud", class: "w-6 h-6 mr-2 text-primary" %>
-          数据上传
-        </h2>
-        <p class="text-secondary leading-relaxed">
-          <strong>我们承诺：</strong>您的文档内容、敏感信息、脱敏规则<strong>永远不会</strong>上传到任何服务器。您的数据只在您的设备上流转。
-        </p>
-      </section>
-
-      <!-- Section 4 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "eye-off", class: "w-6 h-6 mr-2 text-primary" %>
-          追踪与Cookies
-        </h2>
-        <p class="text-secondary leading-relaxed">
-          我们<strong>不使用</strong>任何追踪工具（如 Google Analytics）、<strong>不设置</strong>任何 Cookie、<strong>不收集</strong>任何用户行为数据。
-        </p>
-      </section>
-
-      <!-- Section 5 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "globe", class: "w-6 h-6 mr-2 text-primary" %>
-          第三方服务
-        </h2>
-        <p class="text-secondary leading-relaxed">
-          本应用不集成任何第三方数据分析或广告服务。桌面版本的 Electron 仅用于运行本地应用，不收集任何用户数据。
-        </p>
-      </section>
-
-      <!-- Section 6 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "file-text", class: "w-6 h-6 mr-2 text-primary" %>
-          还原文件说明
-        </h2>
-        <p class="text-secondary leading-relaxed">
-          桌面版本在脱敏时会生成一个 <code>_mapping.json</code> 映射文件，用于还原操作。此文件仅保存在您选择的导出目录中，由您自行保管，我们不会收集或存储此文件。
-        </p>
-      </section>
-
-      <!-- Section 7 -->
-      <section>
-        <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
-          <%= lucide_icon "mail", class: "w-6 h-6 mr-2 text-primary" %>
-          联系我们
-        </h2>
-        <p class="text-secondary leading-relaxed">
-          如果您对本隐私政策有任何疑问，请通过以下方式联系我们：
-        </p>
-        <div class="mt-4 p-4 bg-surface-elevated rounded-lg">
-          <p class="text-secondary">
-            扫码添加作者微信交流<br>
-            <span class="text-sm text-muted">（查看首页底部二维码）</span>
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "shield-check", class: "w-6 h-6 mr-2 text-primary" %>
+            数据处理方式
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            <strong>脱敏大师浏览器版</strong>是一款<strong>完全离线</strong>的文本处理工具。所有文本脱敏和还原操作均在您的浏览器本地完成，<strong>不经过任何服务器</strong>，<strong>不依赖任何云端 AI 服务</strong>。
           </p>
-        </div>
-      </section>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "database", class: "w-6 h-6 mr-2 text-primary" %>
+            数据存储
+          </h2>
+          <p class="text-secondary leading-relaxed mb-3">
+            您的数据仅保存在本地设备中：
+          </p>
+          <ul class="list-disc list-inside text-secondary space-y-2 ml-4">
+            <li>脱敏规则保存在浏览器本地存储（localStorage）中</li>
+            <li>数据不会上传到任何服务器</li>
+            <li>我们无法访问您的任何数据</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "upload-cloud", class: "w-6 h-6 mr-2 text-primary" %>
+            数据上传
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            <strong>我们承诺：</strong>您的文档内容、敏感信息、脱敏规则<strong>永远不会</strong>上传到任何服务器。您的数据只在您的浏览器中流转。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "eye-off", class: "w-6 h-6 mr-2 text-primary" %>
+            追踪与 Cookies
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            我们<strong>不使用</strong>任何追踪工具（如 Google Analytics）、<strong>不设置</strong>任何 Cookie、<strong>不收集</strong>任何用户行为数据。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "globe", class: "w-6 h-6 mr-2 text-primary" %>
+            第三方服务
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            本应用不集成任何第三方数据分析或广告服务。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "mail", class: "w-6 h-6 mr-2 text-primary" %>
+            联系我们
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            如果您对本隐私政策有任何疑问，请通过以下方式联系我们：
+          </p>
+          <div class="mt-4 p-4 bg-surface-elevated rounded-lg">
+            <p class="text-secondary">
+              扫码添加作者微信交流<br>
+              <span class="text-sm text-muted">（查看首页底部二维码）</span>
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-lg">
+        <h3 class="font-bold text-primary mb-2 flex items-center">
+          <%= lucide_icon "check-circle", class: "w-5 h-5 mr-2" %>
+          一句话总结
+        </h3>
+        <p class="text-secondary">
+          浏览器版在本地离线运行，不收集、不上传、不追踪您的任何数据。
+        </p>
+      </div>
 
     </div>
 
-    <!-- Summary Box -->
-    <div class="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-lg">
-      <h3 class="font-bold text-primary mb-2 flex items-center">
-        <%= lucide_icon "check-circle", class: "w-5 h-5 mr-2" %>
-        一句话总结
-      </h3>
-      <p class="text-secondary">
-        脱敏大师在本地离线运行，不收集、不上传、不追踪您的任何数据。您的敏感信息从进入应用到离开应用，全程只存在于您的设备中。
-      </p>
+    <!-- ── 桌面版内容 ── -->
+    <div id="content-desktop" class="hidden">
+
+      <div class="card-elevated p-8 space-y-8">
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "shield-check", class: "w-6 h-6 mr-2 text-primary" %>
+            数据处理方式
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            <strong>脱敏大师桌面版</strong>是一款<strong>完全本地运行</strong>的应用，所有 Word 文档的脱敏和还原操作均在您的电脑本地完成，<strong>无需联网</strong>，<strong>不经过任何服务器</strong>，<strong>不依赖任何云端 AI 服务</strong>。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "hard-drive", class: "w-6 h-6 mr-2 text-primary" %>
+            数据存储
+          </h2>
+          <p class="text-secondary leading-relaxed mb-3">
+            所有数据均存储在您的本地设备中：
+          </p>
+          <ul class="list-disc list-inside text-secondary space-y-2 ml-4">
+            <li>脱敏规则以 JSON 文件形式保存在本地，可自行导入/导出</li>
+            <li>处理后的 Word 文档保存在您指定的本地目录</li>
+            <li>还原映射文件（<code>_mapping.json</code>）由您自行保管</li>
+            <li>我们无法访问您本地的任何文件或数据</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "upload-cloud", class: "w-6 h-6 mr-2 text-primary" %>
+            数据上传
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            <strong>我们承诺：</strong>您的 Word 文档内容、敏感信息、脱敏规则、映射文件<strong>永远不会</strong>上传到任何服务器。一切操作在您的设备本地完成，数据从不离开您的电脑。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "wifi-off", class: "w-6 h-6 mr-2 text-primary" %>
+            网络权限
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            桌面版<strong>不需要</strong>网络连接即可正常使用。应用本身不发起任何网络请求，也不访问任何外部服务。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "eye-off", class: "w-6 h-6 mr-2 text-primary" %>
+            追踪与遥测
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            我们<strong>不内置</strong>任何崩溃上报、使用统计或遥测功能。您的操作行为完全在本地，不会被记录或上传。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "file-text", class: "w-6 h-6 mr-2 text-primary" %>
+            还原映射文件说明
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            桌面版在脱敏时会在输出目录生成一个 <code>_mapping.json</code> 映射文件，用于后续还原操作。<strong>请妥善保管此文件</strong>，丢失后将无法还原原始内容。此文件仅保存在您选择的本地目录，我们不会收集或存储。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-primary mb-4 flex items-center">
+            <%= lucide_icon "mail", class: "w-6 h-6 mr-2 text-primary" %>
+            联系我们
+          </h2>
+          <p class="text-secondary leading-relaxed">
+            如果您对本隐私政策有任何疑问，请通过以下方式联系我们：
+          </p>
+          <div class="mt-4 p-4 bg-surface-elevated rounded-lg">
+            <p class="text-secondary">
+              扫码添加作者微信交流<br>
+              <span class="text-sm text-muted">（查看首页底部二维码）</span>
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="mt-8 p-6 bg-primary/10 border border-primary/20 rounded-lg">
+        <h3 class="font-bold text-primary mb-2 flex items-center">
+          <%= lucide_icon "check-circle", class: "w-5 h-5 mr-2" %>
+          一句话总结
+        </h3>
+        <p class="text-secondary">
+          桌面版完全本地运行、无需联网，不收集、不上传、不追踪您的任何数据。您的 Word 文档从进入应用到离开应用，全程只存在于您的电脑中。
+        </p>
+      </div>
+
     </div>
 
     <!-- Back Link -->
@@ -131,3 +221,27 @@
 
   </div>
 </div>
+
+<script>
+  function switchTab(tab) {
+    const isBrowser = tab === 'browser'
+
+    // 切换内容显示
+    document.getElementById('content-browser').classList.toggle('hidden', !isBrowser)
+    document.getElementById('content-desktop').classList.toggle('hidden', isBrowser)
+
+    // 切换 tab 样式
+    const tabBrowser = document.getElementById('tab-browser')
+    const tabDesktop = document.getElementById('tab-desktop')
+
+    tabBrowser.className = 'px-4 py-2 rounded-full text-sm font-medium transition-colors ' +
+      (isBrowser ? 'bg-primary/10 text-primary' : 'bg-surface-elevated text-muted')
+    tabDesktop.className = 'px-4 py-2 rounded-full text-sm font-medium transition-colors ' +
+      (isBrowser ? 'bg-surface-elevated text-muted' : 'bg-primary/10 text-primary')
+  }
+
+  // 支持 URL hash 直接定位到桌面版：/privacy#desktop
+  if (window.location.hash === '#desktop') {
+    switchTab('desktop')
+  }
+</script>

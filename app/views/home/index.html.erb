@@ -1,35 +1,23 @@
 <div class="min-h-screen bg-surface">
-  <!-- Sticky Header with Scroll Effect -->
+  <!-- Header -->
   <header class="sticky-header" data-controller="navbar-scroll">
     <div class="container mx-auto px-6 py-4">
       <nav class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
           <%= image_tag "app-icon.png", alt: "脱敏大师 Logo", class: "w-8 h-8 rounded-lg" %>
           <span class="text-2xl font-bold text-primary">脱敏大师</span>
-          <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-md font-semibold border border-primary/20">v.1.0.3</span>
+          <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-md font-semibold border border-primary/20">v1.0</span>
         </div>
         <div class="hidden md:flex items-center space-x-8">
+          <a href="#download" class="text-secondary hover:text-primary transition-colors duration-200">下载</a>
+          <a href="#compare" class="text-secondary hover:text-primary transition-colors duration-200">版本对比</a>
           <a href="#features" class="text-secondary hover:text-primary transition-colors duration-200">产品特性</a>
-          <a href="#how-it-works" class="text-secondary hover:text-primary transition-colors duration-200">工作流程</a>
           <a href="#faq" class="text-secondary hover:text-primary transition-colors duration-200">常见问题</a>
-          <%= link_to "立即开始", "/processor", class: "btn-primary" %>
+          <%= link_to "在线使用", "/processor", class: "btn-outline !py-2 !px-4" %>
         </div>
         <div class="flex items-center space-x-2">
-          <!-- PWA Install Button -->
-          <div data-controller="pwa-install">
-            <button
-              data-pwa-install-target="installButton"
-              data-action="click->pwa-install#install"
-              class="hidden btn-primary !py-2 !px-4 flex items-center space-x-2">
-              <%= lucide_icon "download", class: "w-4 h-4" %>
-              <span class="hidden sm:inline">安装应用</span>
-            </button>
-          </div>
-          <!-- Theme Toggle -->
           <div data-controller="theme" data-theme-storage-key-value="demo-isdark">
-            <button 
-              data-action="click->theme#toggle" 
-              class="p-2 rounded-lg hover:bg-surface-elevated transition-colors">
+            <button data-action="click->theme#toggle" class="p-2 rounded-lg hover:bg-surface-elevated transition-colors">
               <%= lucide_icon "sun", class: "w-5 h-5 text-secondary hidden", data: { theme_target: "lightIcon" } %>
               <%= lucide_icon "moon", class: "w-5 h-5 text-secondary", data: { theme_target: "darkIcon" } %>
             </button>
@@ -39,121 +27,225 @@
     </div>
   </header>
 
-  <!-- Hero Section with Interactive Element -->
+  <!-- HERO SECTION -->
   <section class="py-20 px-6 bg-gradient-to-br from-primary/5 via-surface to-secondary/5">
     <div class="container mx-auto max-w-6xl">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6">
-          <div class="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
-            <%= lucide_icon "shield-check", class: "w-4 h-4 text-primary mr-2" %>
-            <span class="text-sm font-medium text-primary">专为专业人士设计</span>
-          </div>
-          <h1 class="text-5xl font-bold text-primary leading-tight">
-            让敏感信息<br>
-            <span class="text-secondary">安全无忧</span>
-          </h1>
-          <p class="text-xl text-secondary leading-relaxed">
-            为律师、咨询顾问等专业人士打造的文本脱敏工具。轻松将敏感文档交给AI处理，并能完美还原，让您的工作更高效、更安全。
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <%= link_to "/processor", class: "action-btn flex items-center justify-center space-x-2" do %>
-              <%= lucide_icon "arrow-right", class: "w-5 h-5" %>
-              <span>立即开始使用</span>
-            <% end %>
-            <a href="#how-it-works" class="btn-outline flex items-center justify-center space-x-2">
-              <%= lucide_icon "play-circle", class: "w-5 h-5" %>
-              <span>了解工作原理</span>
-            </a>
-          </div>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-            <div class="text-center">
-              <div class="text-3xl font-bold text-primary">100%</div>
-              <div class="text-sm text-muted">离线使用</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-primary">100%</div>
-              <div class="text-sm text-muted">双向可还原</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-primary">100%</div>
-              <div class="text-sm text-muted">精准匹配</div>
-            </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-primary">100%</div>
-              <div class="text-sm text-muted">永久免费</div>
-            </div>
-          </div>
-          <div class="pt-4 text-center">
-            <p class="text-sm text-muted flex items-center justify-center space-x-2">
-              <%= lucide_icon "monitor-smartphone", class: "w-4 h-4" %>
-              <span>支持所有设备：Mac、Windows、iPhone、iPad、Android 手机和平板</span>
-            </p>
-          </div>
+      <div class="text-center space-y-6 mb-12">
+        <div class="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
+          <%= lucide_icon "shield-check", class: "w-4 h-4 text-primary mr-2" %>
+          <span class="text-sm font-medium text-primary">专为律师、咨询顾问等专业人士设计</span>
         </div>
-        <div class="card-elevated p-8 bg-surface">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium text-secondary">原始文本示例</span>
-              <span class="stats-badge">脱敏前</span>
-            </div>
-            <div class="text-pane !min-h-[200px]">
-              <p class="text-secondary">北京天元律师事务所代理张三诉讼案件，涉及上海XX公司商业合同纠纷...</p>
-            </div>
-            <div class="flex items-center justify-center">
-              <%= lucide_icon "arrow-down", class: "w-6 h-6 text-primary animate-bounce" %>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-sm font-medium text-secondary">脱敏后文本</span>
-              <span class="stats-badge">可安全分享</span>
-            </div>
-            <div class="text-pane !min-h-[200px] border-primary/50">
-              <p class="text-secondary">【机构A】代理【人物A】诉讼案件，涉及【机构B】商业合同纠纷...</p>
-            </div>
+        <h1 class="text-5xl font-bold text-primary leading-tight">
+          Word 文档批量脱敏<br>
+          <span class="text-secondary">安全交给 AI，完美还原</span>
+        </h1>
+        <p class="text-xl text-secondary leading-relaxed max-w-2xl mx-auto">
+          下载桌面版，直接批量处理本地 Word 文档，无需复制粘贴。不想下载？也可以直接在线使用浏览器版。
+        </p>
+      </div>
+
+      <!-- 下载按钮区 -->
+      <div id="download" class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+        <a href="#" class="action-btn flex items-center justify-center space-x-3 !px-8 !py-4 text-lg w-full sm:w-auto opacity-60 cursor-not-allowed" title="即将上线">
+          <%= lucide_icon "apple", class: "w-6 h-6" %>
+          <div class="text-left">
+            <div class="text-xs opacity-80">下载 Mac 版</div>
+            <div class="font-bold">macOS 客户端</div>
           </div>
+        </a>
+        <a href="#" class="action-btn flex items-center justify-center space-x-3 !px-8 !py-4 text-lg w-full sm:w-auto opacity-60 cursor-not-allowed" title="即将上线">
+          <%= lucide_icon "monitor", class: "w-6 h-6" %>
+          <div class="text-left">
+            <div class="text-xs opacity-80">下载 Windows 版</div>
+            <div class="font-bold">Windows 客户端</div>
+          </div>
+        </a>
+        <%= link_to "/processor", class: "btn-outline flex items-center justify-center space-x-2 !px-8 !py-4 text-lg w-full sm:w-auto" do %>
+          <%= lucide_icon "globe", class: "w-5 h-5" %>
+          <span>直接在线使用（浏览器版）</span>
+        <% end %>
+      </div>
+      <p class="text-center text-sm text-muted mb-16">
+        桌面版即将上线 · 浏览器版现已可用 · 100% 本地处理，数据不上传
+      </p>
+
+      <!-- 统计数字 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="card-elevated p-6 text-center">
+          <div class="text-3xl font-bold text-primary">批量</div>
+          <div class="text-sm text-muted mt-1">Word 文档处理</div>
+        </div>
+        <div class="card-elevated p-6 text-center">
+          <div class="text-3xl font-bold text-primary">100%</div>
+          <div class="text-sm text-muted mt-1">双向还原</div>
+        </div>
+        <div class="card-elevated p-6 text-center">
+          <div class="text-3xl font-bold text-primary">离线</div>
+          <div class="text-sm text-muted mt-1">数据不出本机</div>
+        </div>
+        <div class="card-elevated p-6 text-center">
+          <div class="text-3xl font-bold text-primary">免费</div>
+          <div class="text-sm text-muted mt-1">永久免费使用</div>
         </div>
       </div>
     </div>
   </section>
+  <!-- COMPARE SECTION -->
+  <section id="compare" class="py-20 px-6 bg-surface">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-primary mb-4">选择适合你的版本</h2>
+        <p class="text-lg text-secondary">桌面版功能更强大，浏览器版随开随用</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
 
-  <!-- Product Features - Single Column Scroll with Anchor Animation -->
-  <section id="features" class="py-20 px-6 bg-surface">
+        <!-- 桌面版 -->
+        <div class="card-elevated p-8 border-2 border-primary/40 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="bg-primary text-white text-xs font-bold px-4 py-1 rounded-full">推荐</span>
+          </div>
+          <div class="flex items-center space-x-3 mb-6">
+            <%= lucide_icon "laptop", class: "w-8 h-8 text-primary" %>
+            <div>
+              <h3 class="text-xl font-bold text-primary">桌面版</h3>
+              <p class="text-sm text-muted">Mac · Windows</p>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">批量处理本地 Word 文档（.docx）</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">直接读写本地文件，无需复制粘贴</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">保留原始 Word 格式与排版</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">脱敏规则本地持久化存储</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">完全离线，数据不出本机</span>
+            </li>
+          </ul>
+          <div class="space-y-3">
+            <a href="#" class="btn-primary w-full flex items-center justify-center space-x-2 opacity-60 cursor-not-allowed" title="即将上线">
+              <%= lucide_icon "apple", class: "w-4 h-4" %>
+              <span>下载 Mac 版（即将上线）</span>
+            </a>
+            <a href="#" class="btn-outline w-full flex items-center justify-center space-x-2 opacity-60 cursor-not-allowed" title="即将上线">
+              <%= lucide_icon "monitor", class: "w-4 h-4" %>
+              <span>下载 Windows 版（即将上线）</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 浏览器版 -->
+        <div class="card-elevated p-8">
+          <div class="flex items-center space-x-3 mb-6">
+            <%= lucide_icon "globe", class: "w-8 h-8 text-secondary" %>
+            <div>
+              <h3 class="text-xl font-bold text-primary">浏览器版</h3>
+              <p class="text-sm text-muted">无需安装 · 即开即用</p>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">处理纯文本内容</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">智能选择与高亮匹配</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">脱敏规则浏览器本地保存</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "check-circle", class: "w-5 h-5 text-success flex-shrink-0" %>
+              <span class="text-secondary">支持所有设备（手机/平板/电脑）</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <%= lucide_icon "x-circle", class: "w-5 h-5 text-muted flex-shrink-0" %>
+              <span class="text-muted">不支持直接处理 Word 文件</span>
+            </li>
+          </ul>
+          <%= link_to "/processor", class: "btn-outline w-full flex items-center justify-center space-x-2" do %>
+            <%= lucide_icon "arrow-right", class: "w-4 h-4" %>
+            <span>直接在线使用</span>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- FEATURES SECTION -->
+  <section id="features" class="py-20 px-6 bg-gradient-to-br from-secondary/5 to-surface">
     <div class="container mx-auto max-w-5xl">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-bold text-primary mb-4">强大的产品特性</h2>
-        <p class="text-lg text-secondary">一站式文本脱敏解决方案，保护您的敏感信息</p>
+        <p class="text-lg text-secondary">桌面版 + 浏览器版，覆盖所有使用场景</p>
       </div>
-      <div class="space-y-12">
-        <!-- Feature 1 -->
-        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      <div class="space-y-8">
+
+        <!-- Feature: 批量 Word -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-primary">
           <div class="flex items-start space-x-6">
             <div class="flex-shrink-0 w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center">
-              <%= lucide_icon "mouse-pointer-click", class: "w-8 h-8 text-primary" %>
+              <%= lucide_icon "file-text", class: "w-8 h-8 text-primary" %>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center space-x-2 mb-2">
+                <h3 class="text-2xl font-bold text-primary">批量处理 Word 文档</h3>
+                <span class="text-xs bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-full font-semibold">桌面版专属</span>
+              </div>
+              <p class="text-secondary leading-relaxed">
+                选择一个文件夹，桌面版自动遍历所有 .docx 文件，批量完成脱敏处理，保留原始 Word 格式与排版。告别逐一复制粘贴，效率提升数十倍。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature: 直接读写本地文件 -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-l-4 border-primary">
+          <div class="flex items-start space-x-6">
+            <div class="flex-shrink-0 w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center">
+              <%= lucide_icon "folder-open", class: "w-8 h-8 text-primary" %>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center space-x-2 mb-2">
+                <h3 class="text-2xl font-bold text-primary">直接读写本地文件</h3>
+                <span class="text-xs bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-full font-semibold">桌面版专属</span>
+              </div>
+              <p class="text-secondary leading-relaxed">
+                无需上传，直接操作本机文件。脱敏后的文档自动保存回原路径或指定目录，整个过程数据不出本机，安全无忧。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature: 智能选择高亮 -->
+        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div class="flex items-start space-x-6">
+            <div class="flex-shrink-0 w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center">
+              <%= lucide_icon "mouse-pointer-click", class: "w-8 h-8 text-secondary" %>
             </div>
             <div class="flex-1">
               <h3 class="text-2xl font-bold text-primary mb-3">智能选择与高亮</h3>
               <p class="text-secondary leading-relaxed">
-                鼠标选中任意敏感文字，系统自动高亮全文所有相同内容。支持机构名、人名、地址等各类敏感信息的快速识别和标记。
+                选中任意敏感文字，系统自动高亮全文所有相同内容。支持机构名、人名、地址等各类敏感信息的快速识别和标记。
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Feature 2 -->
-        <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <div class="flex items-start space-x-6">
-            <div class="flex-shrink-0 w-16 h-16 bg-secondary/10 rounded-lg flex items-center justify-center">
-              <%= lucide_icon "layers", class: "w-8 h-8 text-secondary" %>
-            </div>
-            <div class="flex-1">
-              <h3 class="text-2xl font-bold text-primary mb-3">批量脱敏处理</h3>
-              <p class="text-secondary leading-relaxed">
-                一次性添加多个脱敏规则，支持自定义标签格式（如【机构A】、【人物B】等）。点击"一键脱敏"即可完成所有替换，效率倍增。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Feature 3 -->
+        <!-- Feature: 完美还原 -->
         <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           <div class="flex items-start space-x-6">
             <div class="flex-shrink-0 w-16 h-16 bg-success/10 rounded-lg flex items-center justify-center">
@@ -162,163 +254,216 @@
             <div class="flex-1">
               <h3 class="text-2xl font-bold text-primary mb-3">完美还原功能</h3>
               <p class="text-secondary leading-relaxed">
-                AI处理后的文本粘贴回来，点击"一键还原"即可恢复所有原始信息。脱敏映射记录自动保存，支持跨会话使用。
+                AI 处理完成后，一键还原所有原始敏感信息。脱敏映射记录自动保存，支持跨会话使用，不怕关机。
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Feature 4 -->
+        <!-- Feature: 离线安全 -->
         <div class="card-elevated p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           <div class="flex items-start space-x-6">
             <div class="flex-shrink-0 w-16 h-16 bg-info/10 rounded-lg flex items-center justify-center">
               <%= lucide_icon "shield", class: "w-8 h-8 text-info" %>
             </div>
             <div class="flex-1">
-              <h3 class="text-2xl font-bold text-primary mb-3">离线安全存储</h3>
+              <h3 class="text-2xl font-bold text-primary mb-3">离线安全，数据不出机</h3>
               <p class="text-secondary leading-relaxed">
-                所有数据本地存储，无需联网。脱敏记录保存在您的浏览器中，绝不上传服务器，确保敏感信息完全安全。
+                所有处理均在本地完成，无需联网。无论是桌面版还是浏览器版，您的敏感文档从不上传任何服务器。
               </p>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
-
-  <!-- How It Works - Block Diagram with Hover Zoom -->
-  <section id="how-it-works" class="py-20 px-6 bg-gradient-to-br from-secondary/5 to-surface">
+  <!-- HOW IT WORKS SECTION -->
+  <section id="how-it-works" class="py-20 px-6 bg-surface">
     <div class="container mx-auto max-w-6xl">
       <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-primary mb-4">3 步完成脱敏与还原</h2>
-        <p class="text-lg text-secondary">简单直观的操作流程，让您快速上手</p>
+        <h2 class="text-4xl font-bold text-primary mb-4">如何使用</h2>
+        <p class="text-lg text-secondary">桌面版和浏览器版，各有最简工作流</p>
       </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Step 1 -->
-        <div class="card-elevated p-8 text-center hover:scale-105 transition-transform duration-300">
-          <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span class="text-3xl font-bold text-primary">1</span>
-          </div>
-          <%= lucide_icon "edit-3", class: "w-12 h-12 text-primary mx-auto mb-4" %>
-          <h3 class="text-xl font-bold text-primary mb-3">选择与标记</h3>
-          <p class="text-secondary">
-            粘贴原始文本，选中敏感信息，系统自动高亮全文匹配项，设置自定义脱敏标签。
-          </p>
-        </div>
 
-        <!-- Step 2 -->
-        <div class="card-elevated p-8 text-center hover:scale-105 transition-transform duration-300">
-          <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span class="text-3xl font-bold text-secondary">2</span>
-          </div>
-          <%= lucide_icon "shield-check", class: "w-12 h-12 text-secondary mx-auto mb-4" %>
-          <h3 class="text-xl font-bold text-primary mb-3">一键脱敏</h3>
-          <p class="text-secondary">
-            添加多个脱敏规则后，点击"一键脱敏"完成替换，复制脱敏文本交给AI处理。
-          </p>
+      <!-- 桌面版流程 -->
+      <div class="mb-16">
+        <div class="flex items-center space-x-3 mb-8">
+          <%= lucide_icon "laptop", class: "w-6 h-6 text-primary" %>
+          <h3 class="text-2xl font-bold text-primary">桌面版（推荐）</h3>
+          <span class="text-sm text-muted">批量处理 Word 文档</span>
         </div>
-
-        <!-- Step 3 -->
-        <div class="card-elevated p-8 text-center hover:scale-105 transition-transform duration-300">
-          <div class="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span class="text-3xl font-bold text-success">3</span>
+        <div class="grid md:grid-cols-4 gap-6">
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-primary">1</span>
+            </div>
+            <%= lucide_icon "folder-open", class: "w-10 h-10 text-primary mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">选择文件夹</h4>
+            <p class="text-sm text-secondary">选择包含 Word 文档的本地文件夹</p>
           </div>
-          <%= lucide_icon "undo-2", class: "w-12 h-12 text-success mx-auto mb-4" %>
-          <h3 class="text-xl font-bold text-primary mb-3">完美还原</h3>
-          <p class="text-secondary">
-            AI返回结果后，粘贴到右栏，点击"一键还原"恢复所有原始敏感信息。
-          </p>
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-primary">2</span>
+            </div>
+            <%= lucide_icon "tag", class: "w-10 h-10 text-primary mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">设置脱敏规则</h4>
+            <p class="text-sm text-secondary">添加敏感词与替换标签的映射规则</p>
+          </div>
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-secondary">3</span>
+            </div>
+            <%= lucide_icon "zap", class: "w-10 h-10 text-secondary mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">一键批量脱敏</h4>
+            <p class="text-sm text-secondary">自动处理文件夹内所有 .docx 文件</p>
+          </div>
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-success">4</span>
+            </div>
+            <%= lucide_icon "undo-2", class: "w-10 h-10 text-success mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">AI 处理后还原</h4>
+            <p class="text-sm text-secondary">一键将 AI 结果还原为原始信息</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 浏览器版流程 -->
+      <div>
+        <div class="flex items-center space-x-3 mb-8">
+          <%= lucide_icon "globe", class: "w-6 h-6 text-secondary" %>
+          <h3 class="text-2xl font-bold text-primary">浏览器版</h3>
+          <span class="text-sm text-muted">处理纯文本，随开随用</span>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-secondary">1</span>
+            </div>
+            <%= lucide_icon "edit-3", class: "w-10 h-10 text-secondary mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">粘贴文本，标记敏感词</h4>
+            <p class="text-sm text-secondary">粘贴原文，选中敏感词并设置替换标签</p>
+          </div>
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-secondary">2</span>
+            </div>
+            <%= lucide_icon "shield-check", class: "w-10 h-10 text-secondary mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">一键脱敏，交给 AI</h4>
+            <p class="text-sm text-secondary">完成替换，复制脱敏文本给 AI 处理</p>
+          </div>
+          <div class="card-elevated p-6 text-center hover:scale-105 transition-transform duration-300">
+            <div class="w-14 h-14 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl font-bold text-success">3</span>
+            </div>
+            <%= lucide_icon "undo-2", class: "w-10 h-10 text-success mx-auto mb-3" %>
+            <h4 class="font-bold text-primary mb-2">粘贴结果，一键还原</h4>
+            <p class="text-sm text-secondary">AI 结果粘贴回来，一键恢复原始信息</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- FAQ Section - Accordion Style -->
-  <section id="faq" class="py-20 px-6 bg-surface">
+  <!-- FAQ SECTION -->
+  <section id="faq" class="py-20 px-6 bg-gradient-to-br from-secondary/5 to-surface">
     <div class="container mx-auto max-w-4xl">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-bold text-primary mb-4">常见问题</h2>
         <p class="text-lg text-secondary">关于脱敏大师的更多信息</p>
       </div>
       <div class="space-y-4">
-        <!-- FAQ 1 -->
+
         <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200" open>
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>桌面版和浏览器版有什么区别？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            桌面版（Mac/Windows）可以直接读取和批量处理本地 Word 文档（.docx），保留原始格式，无需复制粘贴，适合需要批量处理文件的专业用户。浏览器版处理纯文本，无需安装，随开随用，适合临时使用或移动端场景。
+          </p>
+        </details>
+
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-primary text-lg">
+            <span>桌面版什么时候上线？</span>
+            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
+          </summary>
+          <p class="mt-4 text-secondary leading-relaxed">
+            桌面版 Mac 和 Windows 版本即将上线，敬请期待。如需第一时间获取更新通知，欢迎扫描页面底部二维码添加作者微信。
+          </p>
+        </details>
+
+        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
           <summary class="flex items-center justify-between font-bold text-primary text-lg">
             <span>脱敏标签必须使用中文方括号吗？</span>
             <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
           </summary>
           <p class="mt-4 text-secondary leading-relaxed">
-            是的，强烈建议使用中文方括号【】格式，这样AI工具可以更容易识别这些标签。例如：【机构A】、【人物B】等。这种格式在中文环境下更加醒目且不易混淆。
+            强烈建议使用中文方括号【】格式，如【机构A】、【人物B】。这样 AI 工具更容易识别这些标签，不会误修改，还原时也更精准。
           </p>
         </details>
 
-        <!-- FAQ 2 -->
         <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
           <summary class="flex items-center justify-between font-bold text-primary text-lg">
             <span>脱敏记录会丢失吗？</span>
             <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
           </summary>
           <p class="mt-4 text-secondary leading-relaxed">
-            脱敏映射记录会自动保存在浏览器的本地存储中，支持跨会话保留。即使关闭浏览器，下次打开依然可以使用之前的脱敏规则进行还原。但请注意不要清除浏览器缓存。
+            不会。脱敏规则和映射记录会自动保存在本地（桌面版保存在应用数据目录，浏览器版保存在浏览器 localStorage）。关闭后再打开依然有效，但请避免清除浏览器缓存（浏览器版）。
           </p>
         </details>
 
-        <!-- FAQ 3 -->
         <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
           <summary class="flex items-center justify-between font-bold text-primary text-lg">
-            <span>支持处理大文本吗？</span>
+            <span>数据会上传到服务器吗？</span>
             <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
           </summary>
           <p class="mt-4 text-secondary leading-relaxed">
-            支持！系统经过优化，可以流畅处理大段文本。无论是几页的法律文书还是长篇报告，都能快速完成脱敏和还原操作，不会出现卡顿。
+            绝不会。无论是桌面版还是浏览器版，所有文本处理和存储均在您的本地设备完成，我们不收集、不上传任何用户数据，敏感信息 100% 安全。
           </p>
         </details>
 
-        <!-- FAQ 4 -->
         <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
           <summary class="flex items-center justify-between font-bold text-primary text-lg">
-            <span>可以编辑或删除脱敏规则吗？</span>
+            <span>脱敏大师收费吗？</span>
             <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
           </summary>
           <p class="mt-4 text-secondary leading-relaxed">
-            当然可以！在脱敏规则管理区域，您可以随时编辑、删除单条规则，或者清空所有规则。系统提供直观的界面让您轻松管理所有脱敏映射关系。
+            目前桌面版和浏览器版均完全免费。如果您觉得好用，欢迎推荐给同事朋友，或扫码添加作者微信给我们反馈，帮助我们做得更好。
           </p>
         </details>
 
-        <!-- FAQ 5 -->
-        <details class="card-elevated p-6 cursor-pointer hover:border-primary/50 transition-all duration-200">
-          <summary class="flex items-center justify-between font-bold text-primary text-lg">
-            <span>数据是否会上传到服务器？</span>
-            <%= lucide_icon "chevron-down", class: "w-5 h-5 text-muted" %>
-          </summary>
-          <p class="mt-4 text-secondary leading-relaxed">
-            绝不会！脱敏大师是完全离线的工具，所有文本处理和数据存储都在您的浏览器本地完成。我们不会收集、上传或存储任何用户数据，确保您的敏感信息100%安全。
-          </p>
-        </details>
       </div>
     </div>
   </section>
-
-  <!-- Footer - Two-tier -->
+  <!-- FOOTER -->
   <footer class="bg-surface-elevated border-t border-border">
-    <!-- Top row with links -->
     <div class="container mx-auto px-6 py-12">
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-4 gap-8">
         <div>
           <div class="flex items-center space-x-2 mb-4">
             <%= image_tag "app-icon.png", alt: "脱敏大师 Logo", class: "w-6 h-6 rounded-lg" %>
             <span class="text-xl font-bold text-primary">脱敏大师</span>
           </div>
           <p class="text-sm text-muted">
-            专业的文本脱敏与还原工具，为您的敏感信息保驾护航。
+            专业的文档脱敏与还原工具，为您的敏感信息保驾护航。
           </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-primary mb-4">下载</h4>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li><a href="#" class="hover:text-primary transition-colors opacity-60">Mac 版（即将上线）</a></li>
+            <li><a href="#" class="hover:text-primary transition-colors opacity-60">Windows 版（即将上线）</a></li>
+            <li><a href="/processor" class="hover:text-primary transition-colors">浏览器版（在线使用）</a></li>
+          </ul>
         </div>
         <div>
           <h4 class="font-bold text-primary mb-4">产品</h4>
           <ul class="space-y-2 text-sm text-secondary">
+            <li><a href="#compare" class="hover:text-primary transition-colors">版本对比</a></li>
             <li><a href="#features" class="hover:text-primary transition-colors">产品特性</a></li>
-            <li><a href="#how-it-works" class="hover:text-primary transition-colors">工作流程</a></li>
-            <li><a href="/processor" class="hover:text-primary transition-colors">立即使用</a></li>
+            <li><a href="#faq" class="hover:text-primary transition-colors">常见问题</a></li>
             <li><a href="/privacy" class="hover:text-primary transition-colors">隐私政策</a></li>
           </ul>
         </div>
@@ -334,15 +479,9 @@
         </div>
       </div>
     </div>
-    
-    <!-- Bottom row with copyright -->
     <div class="border-t border-border">
-      <div class="container mx-auto px-6 py-6">
-        <div class="flex flex-col md:flex-row justify-center items-center">
-          <p class="text-sm text-muted">
-            © 2026 脱敏大师 by 镐赞. 保留所有权利。
-          </p>
-        </div>
+      <div class="container mx-auto px-6 py-6 flex justify-center">
+        <p class="text-sm text-muted">© 2026 脱敏大师 by 镐赞. 保留所有权利。</p>
       </div>
     </div>
   </footer>
